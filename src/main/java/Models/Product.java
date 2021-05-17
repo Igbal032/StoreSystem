@@ -3,6 +3,8 @@ import Services.StoreProcess;
 import lombok.Data;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Data
 public class Product extends BaseEntity{
@@ -73,7 +75,7 @@ public class Product extends BaseEntity{
     }
 
     private void getProductsByCategory() {
-        System.out.print("Select the category: \n1. "+Categories.DRINK+"\n2. "+Categories.MEAT+"\n3. "+Categories.DAIRY_PRODUCTS+"\n4. "+Categories.FLOUR_PRODUCTS+"\n5. "+Categories.SWEETS+"\n");
+        System.out.print("Select the category: \n1. "+Categories.DRINK+"\n2. "+Categories.MEAT+"\n3. "+Categories.DAIRY_PRODUCTS+"\n4. "+Categories.FLOUR_PRODUCTS+"\n5. "+Categories.SWEETS+"\n6. "+Categories.OTHERS+"\n");
         String number=selectedCategory(checkCategory());
         categoryName = number;
         List<Product> products = sp.showProductsByCategoryName(categoryName);
@@ -98,7 +100,7 @@ public class Product extends BaseEntity{
         long QRcode = sp.checkQR(true);
         System.out.println("Name of Product: ");
         String name = sc.next();
-        System.out.println("Select the category: \n1. "+Categories.DRINK+"\n2. "+Categories.MEAT+"\n3. "+Categories.DAIRY_PRODUCTS+"\n4. "+Categories.FLOUR_PRODUCTS+"\n5. "+Categories.SWEETS);
+        System.out.print("Select the category: \n1. "+Categories.DRINK+"\n2. "+Categories.MEAT+"\n3. "+Categories.DAIRY_PRODUCTS+"\n4. "+Categories.FLOUR_PRODUCTS+"\n5. "+Categories.SWEETS+"\n6. "+Categories.OTHERS+"\n");
         int category = checkCategory();
         String categoryName=selectedCategory(category);
         System.out.print("Enter count of product: " );
@@ -141,7 +143,7 @@ public class Product extends BaseEntity{
             sp.askForTrueFalseOption();
             isTrue = checkTrueOrFalse();
             if (isTrue==1){
-                System.out.println("Select the category: \n1. "+Categories.DRINK+"\n2. "+Categories.MEAT+"\n3. "+Categories.DAIRY_PRODUCTS+"\n4. "+Categories.FLOUR_PRODUCTS+"\n5. "+Categories.SWEETS);
+                System.out.print("Select the category: \n1. "+Categories.DRINK+"\n2. "+Categories.MEAT+"\n3. "+Categories.DAIRY_PRODUCTS+"\n4. "+Categories.FLOUR_PRODUCTS+"\n5. "+Categories.SWEETS+"\n6. "+Categories.OTHERS+"\n");
                 this.categoryName = selectedCategory(checkCategory());
             }
             System.out.println("Do you want to change COUNT OF PRODUCT?");
@@ -244,7 +246,6 @@ public class Product extends BaseEntity{
         });
     }
 
-
     private int checkCount(){
         String cnt = "";
         while (true){
@@ -264,7 +265,9 @@ public class Product extends BaseEntity{
         String prc="";
         while (true){
             prc=sc.next();
-            if (sp.checkWithMatcher(prc)){
+            Pattern pt = Pattern.compile("[0-9]+.[0-9]");
+            Matcher matcher = pt.matcher(prc);
+            if (matcher.matches()){
                 break;
             }
             else {

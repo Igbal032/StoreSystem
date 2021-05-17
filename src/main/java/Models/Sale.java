@@ -103,7 +103,7 @@ public class Sale extends BaseEntity{
             try {
                 System.out.print("Enter date from: (dd.MM.yyyy)");
                 String fromDate = sc.next();
-                System.out.print("Enter date from: (dd.MM.yyyy)");
+                System.out.print("Enter date to: (dd.MM.yyyy)");
                 String toDate = sc.next();
                 LocalDate from = parseStringToLocalDate(fromDate);
                 LocalDate to = parseStringToLocalDate(toDate);

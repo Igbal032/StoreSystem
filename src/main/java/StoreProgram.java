@@ -27,7 +27,7 @@ public class StoreProgram {
         newPr.setCreatedDate(localdate2);
         Product newPr3 = new Product(1234567,"Toyuq","MEAT",25,100,1234567);
         newPr3.setCreatedDate(LocalDate.now());
-        Product newPr4 = new Product(1234568,"Toyuq 2","MEAT",25,100,1234569);
+        Product newPr4 = new Product(1234568,"Toyuq 2","MEAT",25,100,1234568);
         newPr4.setCreatedDate(LocalDate.now());
         List<SaleItem> pr = new ArrayList<>();
         SaleItem s = new SaleItem(2132153,newPr,25,5);

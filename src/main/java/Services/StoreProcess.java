@@ -17,7 +17,6 @@ public class StoreProcess implements Imarketable {
     private static List<Product> allSalesProducts = new ArrayList<>();
     private static List<Product> remainProducts = new ArrayList<>();
     private static List<Sale> returnedSales = new ArrayList<>();
-
     Scanner sc = new Scanner(System.in);
     int saleId=1;
     public StoreProcess(){
@@ -59,8 +58,8 @@ public class StoreProcess implements Imarketable {
     @Override
     public List<Sale> showSalesBetweenTwoDate(LocalDate from,LocalDate to) {
         List<Sale> sales = getAllSales().stream().filter(w->w.getDeletedDate()==null
-                &&w.getCreatedDate().isAfter(from)
-                &&w.getCreatedDate().isBefore(to)).collect(Collectors.toList());
+                &&w.getCreatedDate().isAfter(from.minusDays(1))
+                &&w.getCreatedDate().isBefore(to.plusDays(1))).collect(Collectors.toList());
         return sales;
     }
     @Override
@@ -118,7 +117,7 @@ public class StoreProcess implements Imarketable {
 
     @Override
     public void removeProduct(long code) {
-       Optional<Product> findProduct =  remainProducts.stream().filter(w->w.getDeletedDate()==null&&w.getId()==code).findFirst();
+       Optional<Product> findProduct =  remainProducts.stream().filter(w->w.getDeletedDate()==null&&w.getCode()==code).findFirst();
        findProduct.get().setDeletedDate(LocalDate.now());
     }
 
